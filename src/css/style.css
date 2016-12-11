@@ -1,0 +1,30 @@
+body {
+	overflow: hidden;
+	height: 100%;
+	width: 100%;
+	position: fixed;
+}
+
+body > div {
+	display: block;
+	position: fixed;
+}
+
+#drawarea {
+	width: 100%;
+	height: 80%;
+	overflow: scroll;
+	background-color: #464646;
+}
+
+canvas {
+	height: 3000px;
+	width: 3000px;
+}
+
+#terminal {
+	top: 80%;
+	width: 100%;
+	height: 17.9%;
+	overflow-y: auto;
+}
