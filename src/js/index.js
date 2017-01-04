@@ -9,11 +9,12 @@ require('../css/style.css');
 (function() {
 	'use strict';
 
+	window.controller = new (require('./lib/terminal-controller'))();
 	const util = require('./lib/util');
 
 	$(document).ready(() => {
 		$('#terminal').terminal((command, term) => {
-			term.error('Sorry, it\'s not ready yet :(');
+			controller.executeInput(command, term);
 		}, {
 			prompt: '?',
 			greetings: '',
