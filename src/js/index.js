@@ -10,6 +10,8 @@ require('../css/style.css');
 	'use strict';
 
 	window.controller = new (require('./lib/terminal-controller'))();
+	require('./lib/commands');
+
 	const util = require('./lib/util');
 
 	$(document).ready(() => {
