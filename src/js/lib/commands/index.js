@@ -9,7 +9,9 @@ let commands = [
 	require('./ve'),
 	require('./ct'),
 	require('./mt'),
-	require('./repete')
+	require('./repete'),
+	require('./pour'),
+	require('./fin')
 ];
 
 commands.map((command) => {

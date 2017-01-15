@@ -1,5 +1,5 @@
 /**
- *
+ * Handles and parses input then calls command callbacks.
  */
 class TerminalController {
 	/**
@@ -7,7 +7,7 @@ class TerminalController {
 	 * @constructor
 	 */
 	constructor() {
-		this.captureFunction = false;
+		this.captureProcedure = false;
 		this.commands = {};
 	}
 
@@ -73,7 +73,12 @@ class TerminalController {
 			return false;
 		}
 
-		command.execute(input, terminal, this);
+		if (this.captureProcedure && command.name !== 'FIN') {
+			this.captureProcedure.commands.push(input);
+			return true;
+		}
+
+		return command.execute(input, terminal, this);
 	}
 }
 
