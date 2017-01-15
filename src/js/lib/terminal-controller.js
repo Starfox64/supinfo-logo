@@ -59,26 +59,65 @@ class TerminalController {
 	 * @returns {Boolean}
 	 */
 	executeInput(input, terminal) {
-		let command = input.match(/\w+/);
-
-		if (!command) {
-			terminal.error('Invalid input!');
+		this.splitCommands(input, terminal).forEach((commandInput) => {
+			
+		});
+		let command = this.detectCommand(input, terminal);
+		if (!command)
 			return false;
-		}
-
-		command = this.getCommand(command[0]);
-
-		if (!command) {
-			terminal.error('Unrecognized command!');
-			return false;
-		}
-
-		if (this.captureProcedure && command.name !== 'FIN') {
-			this.captureProcedure.commands.push(input);
-			return true;
-		}
 
 		return command.execute(input, terminal, this);
+	}
+
+	/**
+	 * Attempts to detect which command corresponds to the input.
+	 * @param {String} input - The string to be scanned for commands.
+	 * @param {Object} terminal - JQuery Terminal instance.
+	 * @returns {Command|null}
+	 */
+	detectCommand(input, terminal) {
+		input = input.trim();
+		let commandRegex = input.match(/\w+/);
+
+		if (!commandRegex) {
+			terminal.error(`${input}: Syntax Error: Cannot parse input!`);
+			return;
+		}
+
+		let commandName = commandRegex.toUpperCase();
+		let command = this.getCommand(commandName);
+
+		if (!command) {
+			terminal.error(`${commandName}: Unknown Command: This command does not exist!`);
+			return;
+		}
+
+		return command;
+	}
+
+	/**
+	 * Splits commands entered on a single line.
+	 * @param {String} input - A string containing 0,n commands.
+	 * @param {Object} terminal - JQuery Terminal instance.
+	 * @returns {Array<String>}
+	 */
+	splitCommands(input, terminal) {
+		let result = [];
+
+		while (input.length > 0) {
+			let command = this.detectCommand(input);
+			let match = command.argumentRegex.exec(input);
+
+			if (!match) {
+				terminal.error(`${command.name}: Syntax Error: Could not validate arguments!`);
+				return [];
+			}
+
+			let commandInput = match[0];
+
+			result.push(commandInput);
+			input = input.substring(commandInput.length).trim();
+		}
 	}
 }
 
