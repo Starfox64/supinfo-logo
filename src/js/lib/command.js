@@ -28,7 +28,7 @@ class Command {
 	execute(input, terminal, controller) {
 		let args = this.argumentRegex.exec(input.trim());
 		if (!args) {
-			terminal.error('Invalid arguments!');
+			terminal.error(`${input}: Syntax Error: Could not validate arguments!`);
 			return false;
 		}
 

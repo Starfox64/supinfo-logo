@@ -13,7 +13,7 @@ class Procedure extends Command {
 	constructor(name, args) {
 		let argumentRegex = '';
 		for (var i = 0; i < args.length; i++)
-			argumentRegex += '\s+(\w+)';
+			argumentRegex += '\\s+(\\w+)';
 
 		super(name, new RegExp(`${name}${argumentRegex}`, 'i'));
 
@@ -31,7 +31,7 @@ class Procedure extends Command {
 	execute(input, terminal, controller) {
 		let args = this.argumentRegex.exec(input.trim());
 		if (!args) {
-			terminal.error('Invalid arguments!');
+			terminal.error(`${input}: Syntax Error: Could not validate arguments!`);
 			return false;
 		}
 

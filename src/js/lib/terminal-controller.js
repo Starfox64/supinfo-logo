@@ -59,12 +59,14 @@ class TerminalController {
 	 * @returns {Boolean}
 	 */
 	executeInput(input, terminal) {
-		this.splitCommands(input, terminal).forEach((commandInput) => {
-			
-		});
 		let command = this.detectCommand(input, terminal);
 		if (!command)
 			return false;
+
+		if (this.captureProcedure && command.name !== 'FIN') {
+			this.captureProcedure.commands.push(input);
+			return true;
+		}
 
 		return command.execute(input, terminal, this);
 	}
@@ -84,7 +86,7 @@ class TerminalController {
 			return;
 		}
 
-		let commandName = commandRegex.toUpperCase();
+		let commandName = commandRegex[0].toUpperCase();
 		let command = this.getCommand(commandName);
 
 		if (!command) {
@@ -118,6 +120,8 @@ class TerminalController {
 			result.push(commandInput);
 			input = input.substring(commandInput.length).trim();
 		}
+
+		return result;
 	}
 }
 
