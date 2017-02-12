@@ -6,6 +6,7 @@ require('../css/reset.css');
 require('../css/terminal.css');
 require('../css/style.css');
 
+
 (function() {
 	'use strict';
 
@@ -25,6 +26,8 @@ require('../css/style.css');
 
 		util.centerCanvas();
 
-		let canvasContext = $('#canvas').get(0).getContext('2d');
+		window.renderingContext = $('#canvas').get(0).getContext('2d');
+		renderingContext.strokeStyle = 'white';
+		window.turtle = new (require('./lib/turtle'))(1500,1500,0, true, false);
 	});
 })();

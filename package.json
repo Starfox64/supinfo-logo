@@ -20,7 +20,8 @@
   "homepage": "https://github.com/Starfox64/supinfo-logo#readme",
   "dependencies": {
     "jquery": "^3.1.1",
-    "jquery.terminal": "^0.11.22"
+    "jquery.terminal": "^0.11.22",
+    "victor": "^1.1.0"
   },
   "devDependencies": {
     "css-loader": "^0.26.1",
