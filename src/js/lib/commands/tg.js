@@ -5,5 +5,5 @@ const Command = require('../command');
  */
 module.exports = new Command('TG', /TG\s+(\d+)/i, (term, controller, degrees) => {
 	degrees = Number(degrees);
-
+	turtle.rotateBy(-degrees);
 }, true);

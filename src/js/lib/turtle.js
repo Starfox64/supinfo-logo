@@ -2,7 +2,7 @@ const Vector = require('victor');
 
 /**
  * Object representing the turtle seen on the canvas
-*/
+ */
 class Turtle {
 	/**
 	 * Instanciates a turtle
@@ -14,7 +14,7 @@ class Turtle {
 	 * @constructor
 	 */
 	constructor(x, y, angle, drawing, hidden) {
-		this.position = new Vector(x, y)
+		this.position = new Vector(x, y);
 		this.previousPos = new Vector(0,0);
 		this.angle = new Vector(1, 0);
 		this.angle.rotateDeg(angle).normalize();
@@ -22,19 +22,23 @@ class Turtle {
 		this.hidden = hidden;
 	}
 
+	/*
+	 * Draw the path the turtle just traveled through
+	 */
 	draw() {
 		if (this.drawing) {
+			renderingContext.beginPath();
 			renderingContext.moveTo(this.previousPos.x, this.previousPos.y);
 			renderingContext.lineTo(this.position.x, this.position.y);
+			renderingContext.closePath();
 			renderingContext.stroke();
 		}
 	}
 
-
 	/**
 	 * Move the turtle on a line defined by the turtle's direction (angle)
 	 * @param {Integer} distance - Distance to travel from current position to new position
-	*/
+	 */
 	moveAlongDirection(distance) {
 		//TODO: move by a number of pixels, not by a distance
 		this.previousPos = this.position.clone();
@@ -43,7 +47,7 @@ class Turtle {
 				new Vector(distance, distance)
 			)
 		);
-
+		this.draw();
 	}
 
 	/**
@@ -54,24 +58,24 @@ class Turtle {
 		this.angle.rotateDeg(angle).normalize();
 	}
 	/**
-	 * Add degrees to turtle's current angle
+	 * Add degrees to turtle's current angle (CCW)
 	 * @param {Integer} degrees - Amount of degrees to add to current angle
 	 */
-	rotate(degrees) {
-		this.angle.rotateByDeg(degrees).normalize();
+	rotateBy(degrees) {
+		this.angle.rotateDeg(degrees).normalize();
 	}
 
 	/**
 	 * Returns wether turtle is hidden or not
 	 * @return {Boolean}
-	*/
+	 */
 	isHidden() {
 		return this.hidden;
 	}
 	/**
 	 * Returns wether movements will be drawn or not
 	 * @return {Boolean}
-	*/
+	 */
 	isDrawing() {
 		return this.drawing;
 	}

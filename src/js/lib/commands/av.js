@@ -6,6 +6,5 @@ const Command = require('../command');
 module.exports = new Command('AV', /AV\s+(\d+)/i, (term, controller, pixels) => {
 	pixels = Number(pixels);
 	turtle.moveAlongDirection(pixels);
-	turtle.draw();
 
 }, true);
