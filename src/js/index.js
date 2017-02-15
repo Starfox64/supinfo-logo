@@ -27,7 +27,7 @@ require('../css/style.css');
 		util.centerCanvas();
 
 		window.renderingContext = $('#canvas').get(0).getContext('2d');
-		window.turtle = new (require('./lib/turtle'))(1500,1500,0, true, false);
 		renderingContext.strokeStyle = '#FFFFFF';
+		window.turtle = new (require('./lib/turtle'))(1500,1500,0, true, false);
 	});
 })();
