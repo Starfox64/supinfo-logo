@@ -10,6 +10,9 @@ require('../css/style.css');
 (function() {
 	'use strict';
 
+	window.CANVAS_HEIGHT = 3000;
+	window.CANVAS_WIDTH = 3000;
+
 	window.controller = new (require('./lib/terminal-controller'))();
 	require('./lib/commands');
 
@@ -26,8 +29,9 @@ require('../css/style.css');
 
 		util.centerCanvas();
 
-		window.renderingContext = $('#canvas').get(0).getContext('2d');
+		window.renderingContext = $('#bg').get(0).getContext('2d');
+		window.turtleRenderingContext = $('#fg').get(0).getContext('2d');
 		renderingContext.strokeStyle = '#FFFFFF';
-		window.turtle = new (require('./lib/turtle'))(1500,1500,0, true, false);
+		window.turtle = new (require('./lib/turtle'))(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, -90, true, false);
 	});
 })();

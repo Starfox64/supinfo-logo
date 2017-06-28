@@ -20,6 +20,9 @@ body > div {
 canvas {
 	height: 3000px;
 	width: 3000px;
+	position:absolute;
+	left:0px;
+	top:0px;
 }
 
 #terminal {

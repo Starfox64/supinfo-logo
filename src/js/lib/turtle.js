@@ -23,7 +23,6 @@ class Turtle {
 		this.drawing = drawing;
 		this.hidden = hidden;
 
-		this.canvasState = renderingContext.getImageData(0, 0, 3000, 3000);
 		this.draw();
 	}
 
@@ -31,24 +30,20 @@ class Turtle {
 	 * Draw the turtle on screen
 	 */
 	draw() {
-		//redraw the current state without the turtle
-		renderingContext.putImageData(this.canvasState, 0, 0);
+		turtleRenderingContext.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 
 		if (!this.hidden) {
-			let color = renderingContext.strokeStyle;
-			renderingContext.strokeStyle = '#FFFF00';
+			turtleRenderingContext.strokeStyle = '#FFFF00';
 
-			renderingContext.beginPath();
-			renderingContext.moveTo(this.position.x, this.position.y);
-			renderingContext.arc(
+			turtleRenderingContext.beginPath();
+			turtleRenderingContext.moveTo(this.position.x, this.position.y);
+			turtleRenderingContext.arc(
 				this.position.x, this.position.y, 10,
 				this.angle.angle() + (Math.PI / 4),
 				this.angle.angle() + (7 * Math.PI / 4)
 			);
-			renderingContext.closePath();
-			renderingContext.stroke();
-
-			renderingContext.strokeStyle = color;
+			turtleRenderingContext.closePath();
+			turtleRenderingContext.stroke();
 		}
 	}
 
@@ -57,17 +52,11 @@ class Turtle {
 	 */
 	drawPath() {
 		if (this.drawing) {
-			//redraw the current state without the turtle
-			renderingContext.putImageData(this.canvasState, 0, 0);
-
 			renderingContext.beginPath();
 			renderingContext.moveTo(this.previousPos.x, this.previousPos.y);
 			renderingContext.lineTo(this.position.x, this.position.y);
 			renderingContext.closePath();
 			renderingContext.stroke();
-
-			//save the new state
-			this.canvasState = renderingContext.getImageData(0, 0, 3000, 3000);
 		}
 	}
 
